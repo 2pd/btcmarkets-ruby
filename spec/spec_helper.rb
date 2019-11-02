@@ -2,6 +2,8 @@
 
 require 'webmock/rspec'
 
+Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each { |file| require file } 
+
 WebMock.disable_net_connect!
 
 require 'btcmarkets'
@@ -22,6 +24,8 @@ require 'btcmarkets'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  config.include RSpecHelpers
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

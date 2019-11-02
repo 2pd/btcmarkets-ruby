@@ -1,0 +1,209 @@
+[
+  {
+    "marketId": "BTC-AUD",
+    "baseAssetName": "BTC",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.0001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "LTC-AUD",
+    "baseAssetName": "LTC",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "LTC-BTC",
+    "baseAssetName": "LTC",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "ETH-BTC",
+    "baseAssetName": "ETH",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "ETH-AUD",
+    "baseAssetName": "ETH",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "ETC-AUD",
+    "baseAssetName": "ETC",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "ETC-BTC",
+    "baseAssetName": "ETC",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "XRP-AUD",
+    "baseAssetName": "XRP",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "4"
+  },
+  {
+    "marketId": "XRP-BTC",
+    "baseAssetName": "XRP",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.01",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "POWR-AUD",
+    "baseAssetName": "POWR",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "4"
+  },
+  {
+    "marketId": "POWR-BTC",
+    "baseAssetName": "POWR",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "OMG-AUD",
+    "baseAssetName": "OMG",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "4"
+  },
+  {
+    "marketId": "OMG-BTC",
+    "baseAssetName": "OMG",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "BCHABC-AUD",
+    "baseAssetName": "BCHABC",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "BCHABC-BTC",
+    "baseAssetName": "BCHABC",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "BCHSV-AUD",
+    "baseAssetName": "BCHSV",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "BCHSV-BTC",
+    "baseAssetName": "BCHSV",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.001",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "GNT-AUD",
+    "baseAssetName": "GNT",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.15",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "4"
+  },
+  {
+    "marketId": "GNT-BTC",
+    "baseAssetName": "GNT",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.15",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "BAT-AUD",
+    "baseAssetName": "BAT",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.06",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "4"
+  },
+  {
+    "marketId": "BAT-BTC",
+    "baseAssetName": "BAT",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.06",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  },
+  {
+    "marketId": "XLM-AUD",
+    "baseAssetName": "XLM",
+    "quoteAssetName": "AUD",
+    "minOrderAmount": "0.1",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "4"
+  },
+  {
+    "marketId": "XLM-BTC",
+    "baseAssetName": "XLM",
+    "quoteAssetName": "BTC",
+    "minOrderAmount": "0.1",
+    "maxOrderAmount": "1000000",
+    "amountDecimals": "8",
+    "priceDecimals": "2"
+  }
+]

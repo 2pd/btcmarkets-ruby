@@ -16,7 +16,7 @@ RSpec.describe BTCMarkets::Market do
     subject { described_class.markets }
     let!(:request_stub) do
       stub_request(:get, "#{BASE_URI}/markets")
-        .to_return(status: 200, body: '{}')
+        .to_return(status: 200, body: json_fixture('markets'))
     end
 
     include_examples 'a valid http request'
