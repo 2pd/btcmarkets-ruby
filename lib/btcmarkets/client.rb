@@ -15,7 +15,10 @@ module BTCMarkets
       private
 
       def process(response)
-        JSON.parse(response.body, symbolize_names: true)
+        data = JSON.parse(response.body, symbolize_names: true)
+        raise Error.new(response.code, data) if Error.error_response?(response)
+
+        data
       end
     end
   end

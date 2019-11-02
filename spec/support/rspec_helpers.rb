@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RSpecHelpers
   def file_fixture(path)
     File.read(File.join('spec', 'fixtures', path))
