@@ -28,39 +28,53 @@ RSpec.describe BTCMarkets::Market do
   end
 
   describe '.ticker' do
-    describe 'with pair' do
-      let(:pair) { 'BTC-AUD' }
+    describe 'with market_id' do
+      let(:market_id) { 'BTC-AUD' }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{pair}/ticker")
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/ticker")
           .to_return(status: 200, body: json_fixture('ticker'))
       end
-      subject { described_class.ticker(pair) }
+      subject { described_class.ticker(market_id) }
       include_examples 'a valid http request'
     end
 
-    describe 'without pair' do
-      let(:pair) { nil }
+    describe 'without market_id' do
+      let(:market_id) { nil }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{pair}/ticker")
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/ticker")
           .to_return(status: 404, body: json_fixture('error_404'))
       end
-      subject { described_class.ticker(pair) }
+      subject { described_class.ticker(market_id) }
 
       it { expect { subject }.to raise_error BTCMarkets::Error }
       include_examples 'a valid http request'
     end
 
-    describe 'incorrect pair' do
-      let(:pair) { 'not_exist_pair' }
+    describe 'incorrect market_id' do
+      let(:market_id) { 'not_exist_market_id' }
 
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{pair}/ticker")
-          .to_return(status: 400, body: json_fixture('error_404'))
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/ticker")
+          .to_return(status: 400, body: json_fixture('error_400'))
       end
-      subject { described_class.ticker(pair) }
+      subject { described_class.ticker(market_id) }
 
       it { expect { subject }.to raise_error BTCMarkets::Error }
       include_examples 'a valid http request'
+    end
+  end
+
+  describe '#trades' do
+    describe 'with incorrect market_id' do
+      let(:market_id) { 'not_exist' }
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/trades")
+          .to_return(status: 400, body: json_fixture('error_400'))
+      end
+      subject { described_class.trades(market_id) }
+
+      it { expect { subject }.to raise_error BTCMarkets::Error }
+      # include_examples 'a valid http request'
     end
   end
 end

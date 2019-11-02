@@ -7,8 +7,12 @@ module BTCMarkets
         Client.public_send(path: '/markets')
       end
 
-      def ticker(pair)
-        Client.public_send(path: "/markets/#{pair}/ticker")
+      def ticker(market_id)
+        Client.public_send(path: "/markets/#{market_id}/ticker")
+      end
+
+      def trades(market_id)
+        Client.public_send(path: "/markets/#{market_id}/trades")
       end
     end
   end
