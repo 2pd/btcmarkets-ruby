@@ -10,6 +10,7 @@ RSpec.describe BTCMarkets::Market do
       rescue StandardError
         BTCMarkets::Error
       end
+
       expect(request_stub).to have_been_requested
     end
   end
@@ -17,7 +18,7 @@ RSpec.describe BTCMarkets::Market do
   describe '.markets' do
     subject { described_class.markets }
     let!(:request_stub) do
-      stub_request(:get, "#{BASE_URI}/markets")
+      stub_request(:get, "#{BASE_URI}/v3/markets")
         .to_return_200_with(json_fixture('markets'))
     end
 
@@ -28,7 +29,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'with market_id' do
       let(:market_id) { 'BTC-AUD' }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/ticker")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/ticker")
           .to_return_200_with(json_fixture('ticker'))
       end
       subject { described_class.ticker(market_id) }
@@ -38,7 +39,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'without market_id' do
       let(:market_id) { nil }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/ticker")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/ticker")
           .to_return_404_with(json_fixture('error_404'))
       end
       subject { described_class.ticker(market_id) }
@@ -51,7 +52,7 @@ RSpec.describe BTCMarkets::Market do
       let(:market_id) { 'not_exist_market_id' }
 
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/ticker")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/ticker")
           .to_return_400_with(json_fixture('error_400'))
       end
       subject { described_class.ticker(market_id) }
@@ -65,7 +66,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'with incorrect market_id' do
       let(:market_id) { 'not_exist' }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/trades")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/trades")
           .to_return_400_with(json_fixture('error_400'))
       end
       subject { described_class.trades(market_id) }
@@ -77,7 +78,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'without market_id' do
       let(:market_id) { nil }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/trades")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/trades")
           .to_return_404_with(json_fixture('error_404'))
       end
       subject { described_class.trades(market_id) }
@@ -94,7 +95,7 @@ RSpec.describe BTCMarkets::Market do
       let(:query_params) { { 'before' => before, 'after' => after, 'limit' => limit } }
 
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/trades")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/trades")
           .with(query: query_params)
           .to_return_200_with(json_fixture('trades'))
       end
@@ -108,7 +109,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'with out market_id' do
       let(:market_id) { nil }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/orderbook")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/orderbook")
           .to_return_404_with(json_fixture('error_404'))
       end
       subject { described_class.orderbook(market_id) }
@@ -120,7 +121,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'with incorrect market_id' do
       let(:market_id) { 'not_exist' }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/orderbook")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/orderbook")
           .to_return_400_with(json_fixture('error_400'))
       end
       subject { described_class.orderbook(market_id) }
@@ -135,7 +136,7 @@ RSpec.describe BTCMarkets::Market do
       let(:query_params) { { 'level' => level } }
 
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/orderbook")
+        stub_request(:get, "#{BASE_URI}/v3/markets/#{market_id}/orderbook")
           .with(query: query_params)
           .to_return_200_with(json_fixture('orderbook'))
       end
@@ -148,7 +149,7 @@ RSpec.describe BTCMarkets::Market do
   describe '#tickers' do
     describe 'all tickers' do
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/tickers")
+        stub_request(:get, "#{BASE_URI}/v3/markets/tickers")
           .to_return_200
       end
       subject { described_class.tickers }
@@ -158,7 +159,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'with given tickers' do
       let(:query_params) { %w[BTC-AUD LTC-AUD] }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/tickers")
+        stub_request(:get, "#{BASE_URI}/v3/markets/tickers")
           .with(query: hash_including('marketId' => query_params))
           .to_return_200
       end
@@ -171,7 +172,7 @@ RSpec.describe BTCMarkets::Market do
   describe '#orderbooks' do
     describe 'all orderbooks' do
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/orderbooks")
+        stub_request(:get, "#{BASE_URI}/v3/markets/orderbooks")
           .to_return_200
       end
       subject { described_class.orderbooks }
@@ -181,7 +182,7 @@ RSpec.describe BTCMarkets::Market do
     describe 'with given tickers' do
       let(:query_params) { %w[BTC-AUD LTC-AUD] }
       let!(:request_stub) do
-        stub_request(:get, "#{BASE_URI}/markets/orderbooks")
+        stub_request(:get, "#{BASE_URI}/v3/markets/orderbooks")
           .with(query: hash_including('marketId' => query_params))
           .to_return_200
       end
