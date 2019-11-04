@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe BTCMarkets::Market do
-
   BASE_URI = 'https://api.btcmarkets.net/v3'
 
   shared_examples 'a valid http request' do
@@ -86,6 +85,64 @@ RSpec.describe BTCMarkets::Market do
       subject { described_class.trades(market_id) }
 
       it { expect { subject }.to raise_error BTCMarkets::Error }
+      include_examples 'a valid http request'
+    end
+
+    describe 'with market_id' do
+      let(:market_id) { 'BTC-AUD' }
+      let(:before) { '78234976' }
+      let(:after) { '78234876' }
+      let(:limit) { 10 }
+      let(:query_params) { { 'before' => before, 'after' => after, 'limit' => limit } }
+
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/trades")
+          .with(query: query_params)
+          .to_return_200_with(json_fixture('trades'))
+      end
+      subject { described_class.trades(market_id, query_params) }
+
+      include_examples 'a valid http request'
+    end
+  end
+
+  describe '#orderbook' do
+    describe 'with out market_id' do
+      let(:market_id) { nil }
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/orderbook")
+          .to_return_404_with(json_fixture('error_404'))
+      end
+      subject { described_class.orderbook(market_id) }
+
+      it { expect { subject }.to raise_error BTCMarkets::Error }
+      include_examples 'a valid http request'
+    end
+
+    describe 'with incorrect market_id' do
+      let(:market_id) { 'not_exist' }
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/orderbook")
+          .to_return_400_with(json_fixture('error_400'))
+      end
+      subject { described_class.orderbook(market_id) }
+
+      it { expect { subject }.to raise_error BTCMarkets::Error }
+      include_examples 'a valid http request'
+    end
+
+    describe 'with market_id' do
+      let(:market_id) { 'BTC-AUD' }
+      let(:level) { 1 }
+      let(:query_params) { { 'level' => level } }
+
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/#{market_id}/orderbook")
+          .with(query: query_params)
+          .to_return_200_with(json_fixture('orderbook'))
+      end
+
+      subject { described_class.orderbook(market_id, query_params) }
       include_examples 'a valid http request'
     end
   end

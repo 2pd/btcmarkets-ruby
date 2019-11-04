@@ -7,8 +7,8 @@ module BTCMarkets
     base_uri 'https://api.btcmarkets.net/v3/'
 
     class << self
-      def public_send(method: :get, path: '/', params: {})
-        response = get(path)
+      def public_send(path: '/', params: {})
+        response = get(path, query: params)
         process(response)
       end
 
