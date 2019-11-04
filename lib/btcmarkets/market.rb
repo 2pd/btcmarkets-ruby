@@ -11,6 +11,11 @@ module BTCMarkets
         Client.public_send(path: "/markets/#{market_id}/ticker")
       end
 
+      def tickers(market_ids = [])
+        params = { 'marketId': market_ids } unless market_ids.empty?
+        Client.public_send(path: '/markets/tickers', params: params)
+      end
+
       def trades(market_id, params = {})
         Client.public_send(path: "/markets/#{market_id}/trades", params: params)
       end

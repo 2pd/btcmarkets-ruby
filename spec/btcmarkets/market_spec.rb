@@ -146,4 +146,27 @@ RSpec.describe BTCMarkets::Market do
       include_examples 'a valid http request'
     end
   end
+
+  describe '.tickers' do
+    describe 'all tickers' do
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/tickers")
+          .to_return_200
+      end
+      subject { described_class.tickers }
+      include_examples 'a valid http request'
+    end
+
+    describe 'with given tickers' do
+      let(:query_params) { %w[BTC-AUD LTC-AUD] }
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}/markets/tickers")
+          .with(query: hash_including('marketId' => query_params))
+          .to_return_200
+      end
+
+      subject { described_class.tickers(query_params) }
+      include_examples 'a valid http request'
+    end
+  end
 end
