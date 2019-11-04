@@ -3,8 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe BTCMarkets::Market do
-  BASE_URI = 'https://api.btcmarkets.net/v3'
-
   shared_examples 'a valid http request' do
     it 'should send api request' do
       begin
