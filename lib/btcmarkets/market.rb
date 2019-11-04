@@ -23,6 +23,11 @@ module BTCMarkets
       def orderbook(market_id, params = {})
         Client.public_send(path: "/markets/#{market_id}/orderbook", params: params)
       end
+
+      def orderbooks(market_ids = [])
+        params = { 'marketId': market_ids } unless market_ids.empty?
+        Client.public_send(path: '/markets/orderbooks', params: params)
+      end
     end
   end
 end
