@@ -18,19 +18,4 @@ RSpec.describe BTCMarkets::Authentication do
 
     it { expect(described_class.api_private_key).to eq 'bbb' }
   end
-
-  describe '#signature' do
-    let(:key) { 'aaaa' }
-    let(:payload) { 'test' }
-
-    before do
-      ENV['BTCMARKETS_PRIVATE_KEY'] = key
-    end
-
-    it 'should encript' do
-      digest = OpenSSL::Digest::SHA512.new
-      signature = OpenSSL::HMAC.hexdigest(digest, key, payload)
-      expect(described_class.signature(payload)).to eq signature
-    end
-  end
 end

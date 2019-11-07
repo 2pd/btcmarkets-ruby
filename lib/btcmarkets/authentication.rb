@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'base64'
+
 module BTCMarkets
   class Authentication
     class << self
@@ -12,8 +14,13 @@ module BTCMarkets
       end
 
       def signature(payload)
-        digest = OpenSSL::Digest::SHA512.new
-        OpenSSL::HMAC.hexdigest(digest, api_private_key, payload)
+        Base64.strict_encode64(OpenSSL::HMAC.digest('sha512', base64_encrypted_key, payload))
+      end
+
+      def base64_encrypted_key
+        puts "test"
+        puts api_private_key
+        Base64.decode64(api_private_key)
       end
     end
   end

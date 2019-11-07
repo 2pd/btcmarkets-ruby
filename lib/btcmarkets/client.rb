@@ -3,7 +3,6 @@
 module BTCMarkets
   class Client
     include HTTParty
-    debug_output $stdout
 
     base_uri 'https://api.btcmarkets.net'
 
@@ -14,19 +13,18 @@ module BTCMarkets
       end
 
       def private_send(method, path, params: {})
-        response = get(path, headers: build_headers(method.to_s, path, params), body: params )
+        response = send(method, path, headers: build_headers(method.to_s, path, params), body: params)
         process(response)
-        # send(method, path: path, headers: build_headers(method.to_s, path, params), body: params )
       end
 
       private
 
       def build_headers(method, path, params)
         timestamp = Helpers::Time.timestamp.to_s
-        puts payload(method, path, timestamp, params)
+
         {
           "Accept": 'application/json',
-          "Accept-Charset": "UTF-8",
+          "Accept-Charset": 'UTF-8',
           "Content-Type": 'application/json',
           "BM-AUTH-APIKEY": Authentication.api_public_key,
           "BM-AUTH-TIMESTAMP": timestamp,
@@ -36,7 +34,9 @@ module BTCMarkets
 
       def payload(method, path, timestamp, params)
         method = method.upcase
-        return "#{method}#{path}#{timestamp}#{params.to_json}" unless params.empty?
+        unless params.empty?
+          return "#{method}#{path}#{timestamp}#{params.to_json}"
+        end
 
         "#{method}#{path}#{timestamp}"
       end
