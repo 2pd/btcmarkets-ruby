@@ -41,22 +41,54 @@ RSpec.describe BTCMarkets::Account do
   end
 
   describe '#transactions' do
-    let(:path) {'/v3/accounts/me/transactions' }
-    let(:timestamp) { Helpers::Time.timestamp }
-    let(:payload) { "GET#{path}#{timestamp}"}
-    let!(:request_stub) do
-      stub_request(:get, "#{BASE_URI}#{path}")
-        .with(headers: {
-          "Accept": 'application/json',
-          "Accept-Charset": 'UTF-8',
-          "Content-Type": 'application/json',
-          "BM-AUTH-APIKEY": public_key,
-          "BM-AUTH-TIMESTAMP": timestamp,
-          "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
-          })
-        .to_return_200
+    context 'default params' do
+      let(:path) {'/v3/accounts/me/transactions' }
+      let(:timestamp) { Helpers::Time.timestamp }
+      let(:payload) { "GET#{path}#{timestamp}"}
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}#{path}")
+          .with(headers: {
+            "Accept": 'application/json',
+            "Accept-Charset": 'UTF-8',
+            "Content-Type": 'application/json',
+            "BM-AUTH-APIKEY": public_key,
+            "BM-AUTH-TIMESTAMP": timestamp,
+            "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            })
+          .to_return_200
+      end
+      subject { described_class.transactions }
+      include_examples 'a valid http request'
     end
-    subject { described_class.transactions }
-    include_examples 'a valid http request'
+
+    context 'with params' do
+      let(:path) {'/v3/accounts/me/transactions' }
+      let(:timestamp) { Helpers::Time.timestamp }
+      let(:payload) { "GET#{path}#{timestamp}"}
+      let(:query_params) do
+        {
+          "assetName": 'BTC',
+          "before": '78234976',
+          "after": '78234876',
+          "limit": 10
+        }
+      end
+      let!(:request_stub) do
+        stub_request(:get, "#{BASE_URI}#{path}")
+          .with(
+            query: query_params,
+            headers: {
+            "Accept": 'application/json',
+            "Accept-Charset": 'UTF-8',
+            "Content-Type": 'application/json',
+            "BM-AUTH-APIKEY": public_key,
+            "BM-AUTH-TIMESTAMP": timestamp,
+            "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            })
+          .to_return_200
+      end
+      subject { described_class.transactions(query_params) }
+      include_examples 'a valid http request'
+    end
   end
 end

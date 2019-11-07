@@ -7,8 +7,8 @@ module BTCMarkets
         Client.private_send(:get, '/v3/accounts/me/balances')
       end
 
-      def transactions
-        Client.private_send(:get, '/v3/accounts/me/transactions')
+      def transactions(params={})
+        Client.private_send(:get, '/v3/accounts/me/transactions', params: params)
       end
     end
   end

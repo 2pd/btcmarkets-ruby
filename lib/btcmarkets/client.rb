@@ -13,13 +13,19 @@ module BTCMarkets
       end
 
       def private_send(method, path, params: {})
-        response = send(method, path, headers: build_headers(method.to_s, path, params), body: params)
+        case method
+        when :get
+          response = send(method, path, headers: build_headers(method.to_s, path), query: params)
+        else
+          response = send(method, path, headers: build_headers(method.to_s, path, params), body: params)
+        end
         process(response)
+
       end
 
       private
 
-      def build_headers(method, path, params)
+      def build_headers(method, path, params={})
         timestamp = Helpers::Time.timestamp.to_s
 
         {
