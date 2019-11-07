@@ -3,7 +3,13 @@
 require 'spec_helper'
 
 RSpec.describe BTCMarkets::Account do
+  let(:public_key) { 'xxx' }
+  let(:private_key) { 'xxx' }
+  let(:timestamp_second) { '1573122562' }
+  let(:timestamp) { '1573122562000' }
+
   before do
+    allow(Time).to receive(:now).and_return(timestamp_second)
     ENV['BTCMARKETS_PUBLIC_KEY'] = public_key
     ENV['BTCMARKETS_PRIVATE_KEY'] = private_key
   end
@@ -16,10 +22,7 @@ RSpec.describe BTCMarkets::Account do
   end
 
   describe '#balance' do
-    let(:public_key) { 'xxx' }
-    let(:private_key) { 'xxx' }
     let(:path) {'/v3/accounts/me/balances' }
-    let(:timestamp) { Helpers::Time.timestamp }
     let(:payload) { "GET#{path}#{timestamp}"}
     let!(:request_stub) do
       stub_request(:get, "#{BASE_URI}#{path}")
@@ -34,6 +37,26 @@ RSpec.describe BTCMarkets::Account do
         .to_return_200
     end
     subject { described_class.balance }
+    include_examples 'a valid http request'
+  end
+
+  describe '#transactions' do
+    let(:path) {'/v3/accounts/me/transactions' }
+    let(:timestamp) { Helpers::Time.timestamp }
+    let(:payload) { "GET#{path}#{timestamp}"}
+    let!(:request_stub) do
+      stub_request(:get, "#{BASE_URI}#{path}")
+        .with(headers: {
+          "Accept": 'application/json',
+          "Accept-Charset": 'UTF-8',
+          "Content-Type": 'application/json',
+          "BM-AUTH-APIKEY": public_key,
+          "BM-AUTH-TIMESTAMP": timestamp,
+          "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+          })
+        .to_return_200
+    end
+    subject { described_class.transactions }
     include_examples 'a valid http request'
   end
 end
