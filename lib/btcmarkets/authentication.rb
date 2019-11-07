@@ -18,8 +18,6 @@ module BTCMarkets
       end
 
       def base64_encrypted_key
-        puts "test"
-        puts api_private_key
         Base64.decode64(api_private_key)
       end
     end

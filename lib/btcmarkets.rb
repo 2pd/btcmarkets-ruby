@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'httparty'
-require 'Helpers/time'
+require 'helpers/time'
 
 require 'btcmarkets/error'
 require 'btcmarkets/client'
