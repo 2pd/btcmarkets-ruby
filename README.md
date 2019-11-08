@@ -22,8 +22,9 @@ BTCMarkets::Account.transactions({limit: 2, after: xxxxx, before: xxxx})
 BTCMarkets::Account.transactions
 
 BTCMarkets::Trade.trades
-
 BTCMarkets::Trade.trade('xxxxxx')
+
+BTCMarkets::Fund.deposit_address('BTC')
 ```
 
 ## Licence
