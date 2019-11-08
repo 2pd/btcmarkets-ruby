@@ -52,5 +52,24 @@ RSpec.describe BTCMarkets::Trade do
   end
 
   describe '#trade' do
+    let(:trade_id) { '12345678' }
+    let(:path) { "/v3/trades/#{trade_id}" }
+    let(:payload) { "GET#{path}#{timestamp}"}
+    let!(:request_stub) do
+      stub_request(:get, "#{BASE_URI}#{path}")
+        .with(
+          headers: {
+          "Accept": 'application/json',
+          "Accept-Charset": 'UTF-8',
+          "Content-Type": 'application/json',
+          "BM-AUTH-APIKEY": public_key,
+          "BM-AUTH-TIMESTAMP": timestamp,
+          "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+          })
+        .to_return_200
+    end
+    subject { described_class.trade(trade_id) }
+    include_examples 'a valid http request'
+
   end
 end
