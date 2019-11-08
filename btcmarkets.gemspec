@@ -4,7 +4,7 @@ require "btcmarkets/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "btcmarkets"
-  spec.version       = Btcmarkets::VERSION
+  spec.version       = BTCMarkets::VERSION
   spec.authors       = ["Liang Shi"]
   spec.email         = ["liang.shi@protonmail.com"]
 
