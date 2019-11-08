@@ -22,18 +22,18 @@ RSpec.describe BTCMarkets::Account do
   end
 
   describe '#balance' do
-    let(:path) {'/v3/accounts/me/balances' }
-    let(:payload) { "GET#{path}#{timestamp}"}
+    let(:path) { '/v3/accounts/me/balances' }
+    let(:payload) { "GET#{path}#{timestamp}" }
     let!(:request_stub) do
       stub_request(:get, "#{BASE_URI}#{path}")
         .with(headers: {
-          "Accept": 'application/json',
-          "Accept-Charset": 'UTF-8',
-          "Content-Type": 'application/json',
-          "BM-AUTH-APIKEY": public_key,
-          "BM-AUTH-TIMESTAMP": timestamp,
-          "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
-          })
+                "Accept": 'application/json',
+                "Accept-Charset": 'UTF-8',
+                "Content-Type": 'application/json',
+                "BM-AUTH-APIKEY": public_key,
+                "BM-AUTH-TIMESTAMP": timestamp,
+                "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+              })
         .to_return_200
     end
     subject { described_class.balance }
@@ -42,19 +42,19 @@ RSpec.describe BTCMarkets::Account do
 
   describe '#transactions' do
     context 'default params' do
-      let(:path) {'/v3/accounts/me/transactions' }
+      let(:path) { '/v3/accounts/me/transactions' }
       let(:timestamp) { Helpers::Time.timestamp }
-      let(:payload) { "GET#{path}#{timestamp}"}
+      let(:payload) { "GET#{path}#{timestamp}" }
       let!(:request_stub) do
         stub_request(:get, "#{BASE_URI}#{path}")
           .with(headers: {
-            "Accept": 'application/json',
-            "Accept-Charset": 'UTF-8',
-            "Content-Type": 'application/json',
-            "BM-AUTH-APIKEY": public_key,
-            "BM-AUTH-TIMESTAMP": timestamp,
-            "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
-            })
+                  "Accept": 'application/json',
+                  "Accept-Charset": 'UTF-8',
+                  "Content-Type": 'application/json',
+                  "BM-AUTH-APIKEY": public_key,
+                  "BM-AUTH-TIMESTAMP": timestamp,
+                  "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+                })
           .to_return_200
       end
       subject { described_class.transactions }
@@ -62,9 +62,9 @@ RSpec.describe BTCMarkets::Account do
     end
 
     context 'with params' do
-      let(:path) {'/v3/accounts/me/transactions' }
+      let(:path) { '/v3/accounts/me/transactions' }
       let(:timestamp) { Helpers::Time.timestamp }
-      let(:payload) { "GET#{path}#{timestamp}"}
+      let(:payload) { "GET#{path}#{timestamp}" }
       let(:query_params) do
         {
           "assetName": 'BTC',
@@ -78,13 +78,14 @@ RSpec.describe BTCMarkets::Account do
           .with(
             query: query_params,
             headers: {
-            "Accept": 'application/json',
-            "Accept-Charset": 'UTF-8',
-            "Content-Type": 'application/json',
-            "BM-AUTH-APIKEY": public_key,
-            "BM-AUTH-TIMESTAMP": timestamp,
-            "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
-            })
+              "Accept": 'application/json',
+              "Accept-Charset": 'UTF-8',
+              "Content-Type": 'application/json',
+              "BM-AUTH-APIKEY": public_key,
+              "BM-AUTH-TIMESTAMP": timestamp,
+              "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            }
+          )
           .to_return_200
       end
       subject { described_class.transactions(query_params) }

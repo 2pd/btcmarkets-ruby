@@ -22,8 +22,8 @@ RSpec.describe BTCMarkets::Fund do
   end
 
   describe '#deposit_address' do
-    let(:path) {'/v3/addresses' }
-    let(:payload) { "GET#{path}#{timestamp}"}
+    let(:path) { '/v3/addresses' }
+    let(:payload) { "GET#{path}#{timestamp}" }
     let(:asset) { 'BTC' }
     let(:query_params) do
       {
@@ -35,13 +35,14 @@ RSpec.describe BTCMarkets::Fund do
         .with(
           query: query_params,
           headers: {
-          "Accept": 'application/json',
-          "Accept-Charset": 'UTF-8',
-          "Content-Type": 'application/json',
-          "BM-AUTH-APIKEY": public_key,
-          "BM-AUTH-TIMESTAMP": timestamp,
-          "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
-          })
+            "Accept": 'application/json',
+            "Accept-Charset": 'UTF-8',
+            "Content-Type": 'application/json',
+            "BM-AUTH-APIKEY": public_key,
+            "BM-AUTH-TIMESTAMP": timestamp,
+            "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+          }
+        )
         .to_return_200
     end
     subject { described_class.deposit_address(asset) }
