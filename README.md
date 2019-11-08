@@ -1,6 +1,30 @@
 # BTCMarkets API wrapper
 This is Ruby Wrapper for https://btcmarkets.net/
 
+Supported V3 only
+
+RP is welcome
+
+## Install
+
+```bash
+gem 'btcmarkets'
+
+bundle install
+
+```
+
+## Usage
+
+```ruby
+
+require 'btcmarkets'
+
+puts BTCMarkets::Market.markets
+
+# see below for more supported API
+```
+
 ## Supported API
 
 ```bash
