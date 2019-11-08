@@ -19,7 +19,7 @@ ENV['BTCMARKETS_PRIVATE_KEY'] = ''
 BTCMarkets::Account.blance
 
 BTCMarkets::Account.transactions({limit: 2, after: xxxxx, before: xxxx})
-BTCMarkets::Account.transactions()
+BTCMarkets::Account.transactions
 ```
 
 ## Licence
