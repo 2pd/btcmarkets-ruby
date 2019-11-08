@@ -20,6 +20,8 @@ BTCMarkets::Account.blance
 
 BTCMarkets::Account.transactions({limit: 2, after: xxxxx, before: xxxx})
 BTCMarkets::Account.transactions
+
+BTCMarkets::Trade.trades
 ```
 
 ## Licence

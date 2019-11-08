@@ -12,3 +12,4 @@ require 'btcmarkets/server'
 
 require 'btcmarkets/authentication'
 require 'btcmarkets/account'
+require 'btcmarkets/trade'
