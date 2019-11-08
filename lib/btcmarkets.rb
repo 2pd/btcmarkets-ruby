@@ -2,6 +2,7 @@
 
 require 'httparty'
 require 'helpers/time'
+require 'btcmarkets/version'
 
 require 'btcmarkets/error'
 require 'btcmarkets/client'
