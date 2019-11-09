@@ -3,7 +3,7 @@ This is Ruby Wrapper for https://btcmarkets.net/
 
 Supported V3 only
 
-RP is welcome
+PR is welcome
 
 ## Install
 
