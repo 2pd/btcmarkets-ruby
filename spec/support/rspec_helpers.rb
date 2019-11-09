@@ -16,7 +16,7 @@ end
 
 module WebMock
   class RequestStub
-    [200, 400, 404].each do |status|
+    [200, 400, 403, 404].each do |status|
       define_method("to_return_#{status}") do |body = {}|
         to_return(status: status, body: body.to_json)
       end
