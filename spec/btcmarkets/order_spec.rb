@@ -278,4 +278,68 @@ RSpec.describe BTCMarkets::Order do
       include_examples 'raise error'
     end
   end
+
+  describe '#cancel' do
+    let(:order_id) { '1111111' }
+    let(:path) { "/v3/orders/#{order_id}" }
+    let(:payload) { "DELETE#{path}#{timestamp}" }
+
+    let!(:request_stub) do
+      stub_request(:delete, "#{BASE_URI}#{path}")
+        .with(
+          headers: {
+            "Accept": 'application/json',
+            "Accept-Charset": 'UTF-8',
+            "Content-Type": 'application/json',
+            "BM-AUTH-APIKEY": public_key,
+            "BM-AUTH-TIMESTAMP": timestamp,
+            "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+          }
+        )
+        .to_return_200
+    end
+
+    context 'order existing' do
+      subject { described_class.cancel(order_id) }
+      include_examples 'a valid http request'
+    end
+
+    context 'order not found' do
+      let!(:request_stub) do
+        stub_request(:delete, "#{BASE_URI}#{path}")
+          .with(
+            headers: {
+              "Accept": 'application/json',
+              "Accept-Charset": 'UTF-8',
+              "Content-Type": 'application/json',
+              "BM-AUTH-APIKEY": public_key,
+              "BM-AUTH-TIMESTAMP": timestamp,
+              "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            }
+          )
+          .to_return_404
+      end
+      subject { described_class.cancel(order_id) }
+      include_examples 'raise error'
+    end
+
+    context 'order already cancelled' do
+      let!(:request_stub) do
+        stub_request(:delete, "#{BASE_URI}#{path}")
+          .with(
+            headers: {
+              "Accept": 'application/json',
+              "Accept-Charset": 'UTF-8',
+              "Content-Type": 'application/json',
+              "BM-AUTH-APIKEY": public_key,
+              "BM-AUTH-TIMESTAMP": timestamp,
+              "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            }
+          )
+          .to_return_400
+      end
+      subject { described_class.cancel(order_id) }
+      include_examples 'raise error'
+    end
+  end
 end

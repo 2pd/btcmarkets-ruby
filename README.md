@@ -51,6 +51,7 @@ BTCMarkets::Trade.trade('xxxxxx')
 BTCMarkets::Fund.deposit_address('BTC')
 
 
+// create an order
 BTCMarkets::Order.create({
   'marketId': 'BTC-AUD',
   'price': '1000.00',
@@ -59,6 +60,8 @@ BTCMarkets::Order.create({
   'side': 'Bid'
 })
 
+// cancel an order
+BTCMarkets::Order.cancel('1234567')
 ```
 
 ## Licence
