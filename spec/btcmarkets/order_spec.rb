@@ -33,7 +33,7 @@ RSpec.describe BTCMarkets::Order do
     let!(:request_stub) do
       stub_request(:post, "#{BASE_URI}#{path}")
         .with(
-          body: request_body,
+          body: body_params.to_json,
           headers: {
             "Accept": 'application/json',
             "Accept-Charset": 'UTF-8',
@@ -169,7 +169,7 @@ RSpec.describe BTCMarkets::Order do
       let!(:request_stub) do
         stub_request(:post, "#{BASE_URI}#{path}")
           .with(
-            body: request_body,
+            body: body_params.to_json,
             headers: {
               "Accept": 'application/json',
               "Accept-Charset": 'UTF-8',
@@ -199,7 +199,7 @@ RSpec.describe BTCMarkets::Order do
       let!(:request_stub) do
         stub_request(:post, "#{BASE_URI}#{path}")
           .with(
-            body: request_body,
+            body: body_params.to_json,
             headers: {
               "Accept": 'application/json',
               "Accept-Charset": 'UTF-8',
@@ -210,6 +210,68 @@ RSpec.describe BTCMarkets::Order do
             }
           )
           .to_return_400
+      end
+
+      subject { described_class.create(body_params) }
+      include_examples 'raise error'
+    end
+
+    context 'insufficient funds' do
+      let(:body_params) do
+        {
+          'marketId': 'BTC',
+          'price': '10000.00',
+          'amount': '100',
+          'type': 'Limit',
+          'side': 'Bid'
+        }
+      end
+      let(:response) { { 'code': 'InsufficientFund', 'message': 'Insufficient fund' } }
+
+      let!(:request_stub) do
+        stub_request(:post, "#{BASE_URI}#{path}")
+          .with(
+            body: body_params.to_json,
+            headers: {
+              "Accept": 'application/json',
+              "Accept-Charset": 'UTF-8',
+              "Content-Type": 'application/json',
+              "BM-AUTH-APIKEY": public_key,
+              "BM-AUTH-TIMESTAMP": timestamp,
+              "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            }
+          )
+          .to_return_400_with(response.to_json)
+      end
+
+      subject { described_class.create(body_params) }
+      include_examples 'raise error'
+    end
+
+    context 'insufficient api permission' do
+      let(:body_params) do
+        {
+          'marketId': 'BTC',
+          'price': '10000.00',
+          'amount': '0.1',
+          'type': 'Limit',
+          'side': 'Ask'
+        }
+      end
+      let!(:request_stub) do
+        stub_request(:post, "#{BASE_URI}#{path}")
+          .with(
+            body: body_params.to_json,
+            headers: {
+              "Accept": 'application/json',
+              "Accept-Charset": 'UTF-8',
+              "Content-Type": 'application/json',
+              "BM-AUTH-APIKEY": public_key,
+              "BM-AUTH-TIMESTAMP": timestamp,
+              "BM-AUTH-SIGNATURE": BTCMarkets::Authentication.signature(payload)
+            }
+          )
+          .to_return_403
       end
 
       subject { described_class.create(body_params) }

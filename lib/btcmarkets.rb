@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'json'
 require 'httparty'
 require 'helpers/time'
 require 'btcmarkets/version'

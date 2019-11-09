@@ -17,7 +17,7 @@ module BTCMarkets
         when :get
           response = send(method, path, headers: build_headers(method.to_s, path), query: params)
         else
-          response = send(method, path, headers: build_headers(method.to_s, path, params), body: params)
+          response = send(method, path, headers: build_headers(method.to_s, path, params), body: params.to_json)
         end
         process(response)
       end

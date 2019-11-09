@@ -49,6 +49,16 @@ BTCMarkets::Trade.trades
 BTCMarkets::Trade.trade('xxxxxx')
 
 BTCMarkets::Fund.deposit_address('BTC')
+
+
+BTCMarkets::Order.create({
+  'marketId': 'BTC-AUD',
+  'price': '1000.00',
+  'amount': '0.1',
+  'type': 'Limit',
+  'side': 'Bid'
+})
+
 ```
 
 ## Licence
